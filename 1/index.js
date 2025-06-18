@@ -10,16 +10,16 @@ export function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    const play = playFor(perf);
-    let thisAmount = amountFor(perf, play);
+    let thisAmount = amountFor(perf, playFor(perf));
 
     // ボリューム特典のポイントを加算
     volumeCredits += Math.max(perf.audience - 30, 0);
     // 喜劇のときは 10 人につき、さらにポイントを加算
-    if ('comedy' === play.type) volumeCredits += Math.floor(perf.audience / 5);
+    if ('comedy' === playFor(perf).type)
+      volumeCredits += Math.floor(perf.audience / 5);
 
     // 注文の内訳を出力
-    result += `  ${play.name}: ${format(thisAmount / 100)} (${
+    result += `  ${playFor(perf).name}: ${format(thisAmount / 100)} (${
       perf.audience
     } seats)\n`;
     totalAmount += thisAmount;
@@ -32,28 +32,28 @@ export function statement(invoice, plays) {
   function playFor(aPerformance) {
     return plays[aPerformance.playID];
   }
-}
 
-function amountFor(aPerformances, play) {
-  let result = 0;
+  function amountFor(aPerformances, play) {
+    let result = 0;
 
-  switch (play.type) {
-    case 'tragedy':
-      result = 40000;
-      if (aPerformances.audience > 30) {
-        result += 1000 * (aPerformances.audience - 30);
-      }
-      break;
-    case 'comedy':
-      result = 30000;
-      if (aPerformances.audience > 20) {
-        result += 10000 + 500 * (aPerformances.audience - 20);
-      }
-      result += 300 * aPerformances.audience;
-      break;
-    default:
-      throw new Error(`unknown type: ${play.type}`);
+    switch (playFor(aPerformances).type) {
+      case 'tragedy':
+        result = 40000;
+        if (aPerformances.audience > 30) {
+          result += 1000 * (aPerformances.audience - 30);
+        }
+        break;
+      case 'comedy':
+        result = 30000;
+        if (aPerformances.audience > 20) {
+          result += 10000 + 500 * (aPerformances.audience - 20);
+        }
+        result += 300 * aPerformances.audience;
+        break;
+      default:
+        throw new Error(`unknown type: ${playFor(aPerformances).type}`);
+    }
+
+    return result;
   }
-
-  return result;
 }
