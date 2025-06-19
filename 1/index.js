@@ -9,16 +9,14 @@ export function statement(invoice, plays) {
     } seats)\n`;
     totalAmount += amountFor(perf);
   }
-
-  let volumeCredits = 0;
-  for (let perf of invoice.performances) {
-    // ボリューム特典のポイントを加算
-    volumeCredits += volumeCreditsFor(perf);
-  }
-
+  let volumeCredits = totalVolumeCredits();
   result += `Amount owed is ${usd(totalAmount / 100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
   return result;
+
+  function playFor(aPerformance) {
+    return plays[aPerformance.playID];
+  }
 
   function usd(aNumber) {
     return new Intl.NumberFormat('en-US', {
@@ -26,21 +24,6 @@ export function statement(invoice, plays) {
       currency: 'USD',
       minimumFractionDigits: 2,
     }).format(aNumber);
-  }
-
-  function volumeCreditsFor(aPerformance) {
-    let result = 0;
-    // ボリューム特典のポイントを加算
-    result += Math.max(aPerformance.audience - 30, 0);
-    // 喜劇のときは 10 人につき、さらにポイントを加算
-    if ('comedy' === playFor(aPerformance).type)
-      result += Math.floor(aPerformance.audience / 5);
-
-    return result;
-  }
-
-  function playFor(aPerformance) {
-    return plays[aPerformance.playID];
   }
 
   function amountFor(aPerformances) {
@@ -63,6 +46,25 @@ export function statement(invoice, plays) {
       default:
         throw new Error(`unknown type: ${playFor(aPerformances).type}`);
     }
+
+    return result;
+  }
+
+  function totalVolumeCredits() {
+    let volumeCredits = 0;
+    for (let perf of invoice.performances) {
+      volumeCredits += volumeCreditsFor(perf);
+    }
+    return volumeCredits;
+  }
+
+  function volumeCreditsFor(aPerformance) {
+    let result = 0;
+    // ボリューム特典のポイントを加算
+    result += Math.max(aPerformance.audience - 30, 0);
+    // 喜劇のときは 10 人につき、さらにポイントを加算
+    if ('comedy' === playFor(aPerformance).type)
+      result += Math.floor(aPerformance.audience / 5);
 
     return result;
   }
