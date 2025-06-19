@@ -18,17 +18,13 @@ export function statement(invoice, plays) {
 function renderPlainText(data, plays) {
   let result = `Statement for ${data.customer}\n`;
   for (let perf of data.performances) {
-    result += `  ${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${
+    result += `  ${perf.play.name}: ${usd(amountFor(perf) / 100)} (${
       perf.audience
     } seats)\n`;
   }
   result += `Amount owed is ${usd(totalAmount() / 100)}\n`;
   result += `You earned ${totalVolumeCredits()} credits\n`;
   return result;
-
-  function playFor(aPerformance) {
-    return plays[aPerformance.playID];
-  }
 
   function usd(aNumber) {
     return new Intl.NumberFormat('en-US', {
@@ -41,7 +37,7 @@ function renderPlainText(data, plays) {
   function amountFor(aPerformances) {
     let result = 0;
 
-    switch (playFor(aPerformances).type) {
+    switch (aPerformances.play.type) {
       case 'tragedy':
         result = 40000;
         if (aPerformances.audience > 30) {
@@ -83,7 +79,7 @@ function renderPlainText(data, plays) {
     // ボリューム特典のポイントを加算
     result += Math.max(aPerformance.audience - 30, 0);
     // 喜劇のときは 10 人につき、さらにポイントを加算
-    if ('comedy' === playFor(aPerformance).type)
+    if ('comedy' === aPerformance.play.type)
       result += Math.floor(aPerformance.audience / 5);
 
     return result;
