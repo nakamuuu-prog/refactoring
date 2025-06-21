@@ -25,6 +25,8 @@ You earned 47 credits
 const actualOutput = statement(invoice[0], plays).trim();
 
 // テスト
+console.log('----- テスト開始 -----');
+console.log();
 try {
   assert.strictEqual(actualOutput, expectedOutput);
   console.log('✅ テスト成功：出力は期待通りです');
@@ -35,3 +37,5 @@ try {
   console.error('---- 期待される出力 ----');
   console.error(expectedOutput);
 }
+console.log();
+console.log('----- テスト終了 ----- ');
