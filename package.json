@@ -1,0 +1,20 @@
+{
+  "name": "refactoring",
+  "version": "1.0.0",
+  "description": "「リファクタリング 既存のコードを安全に改善する」の実践",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon 1/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nakamuuu-prog/refactoring.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nakamuuu-prog/refactoring/issues"
+  },
+  "homepage": "https://github.com/nakamuuu-prog/refactoring#readme",
+  "devDependencies": {}
+}
