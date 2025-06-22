@@ -7,7 +7,7 @@ export default function createStatementData(invoice, plays) {
   return result;
 
   function enrichPerformance(aPerformance) {
-    const calculator = new PerformanceCalculator(
+    const calculator = createPerformanceCalculator(
       aPerformance,
       playFor(aPerformance)
     );
@@ -16,6 +16,10 @@ export default function createStatementData(invoice, plays) {
     result.amount = calculator.amount;
     result.volumeCredits = calculator.volumeCredits;
     return result;
+  }
+
+  function createPerformanceCalculator(aPerformance, aPlay) {
+    return new PerformanceCalculator(aPerformance, aPlay);
   }
 
   function playFor(aPerformance) {
