@@ -2,9 +2,15 @@ import { Province } from '../index.js';
 import { expect } from 'chai';
 
 describe('province', function () {
+  let asia;
+  beforeEach(function () {
+    asia = new Province(sampleProvinceData());
+  });
   it('shortfall', function () {
-    const asia = new Province(sampleProvinceData());
     expect(asia.shortfall).equal(5);
+  });
+  it('profit', function () {
+    expect(asia.profit).equal(230);
   });
 });
 
