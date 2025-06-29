@@ -4,8 +4,9 @@
   "description": "「リファクタリング 既存のコードを安全に改善する」の実践",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon 1/test.js"
+    "test": "npx nodemon --watch chapter4 --ext js --exec mocha chapter4/test/**/*.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nakamuuu-prog/refactoring.git"
@@ -16,5 +17,8 @@
     "url": "https://github.com/nakamuuu-prog/refactoring/issues"
   },
   "homepage": "https://github.com/nakamuuu-prog/refactoring#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.7.1"
+  }
 }
