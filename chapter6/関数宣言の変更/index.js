@@ -1,4 +1,6 @@
-const newEnglanders = someCustomers.filter((c) => inNewEngland(c));
+const newEnglanders = someCustomers.filter((c) =>
+  xxNewinEngland(c.address.state)
+);
 
 function inNewEngland(sCustomer) {
   return xxNewinEngland(sCustomer.address.state);
