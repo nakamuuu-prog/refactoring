@@ -11,7 +11,8 @@ function client2() {
 }
 
 function client3() {
-  const aReading = acquireReading();
+  const rawReading = acquireReading();
+  const aReading = new Reading(rawReading);
   const basicChargeAmount = calculateBaseCharge(aReading);
   function calculateBaseCharge(aReading) {
     return baseRate(aReading.month, aReading.year) * aReading.quantity;
