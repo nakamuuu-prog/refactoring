@@ -7,10 +7,7 @@ function client1() {
 function client2() {
   const rawReading = acquireReading();
   const aReading = new Reading(rawReading);
-  const taxableCharge = taxableChargeFn(aReading);
-  function taxableChargeFn(aReading) {
-    return Math.max(0, aReading.baseCharge - taxThreshold(aReading.year));
-  }
+  const taxableCharge = aReading.taxableCharge;
 }
 
 function client3() {
@@ -40,5 +37,8 @@ class Reading {
   }
   get baseCharge() {
     return baseRate(this.month, this.year) * this.quantity;
+  }
+  get taxableCharge() {
+    return Math.max(0, this.baseCharge - taxThreshold(this.year));
   }
 }
