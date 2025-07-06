@@ -4,18 +4,20 @@ function priceOrder(product, quantity, shippingMethod) {
     Math.max(quantity - product.discountThreshold, 0) *
     product.basePrice *
     product.discountRate;
+  // shippingMethodは前半部分で使われていないのでオブジェクトにまとめない
   const priceData = {
     basePrice: basePrice,
+    quantity: quantity,
   };
-  const price = applyShipping(priceData, shippingMethod, quantity, discount);
+  const price = applyShipping(priceData, shippingMethod, discount);
   return price;
 }
-function applyShipping(priceData, shippingMethod, quantity, discount) {
+function applyShipping(priceData, shippingMethod, discount) {
   const shippingPerCase =
     priceData.basePrice > shippingMethod.discountThreshold
       ? shippingMethod.discountedFee
       : shippingMethod.feePerCase;
-  const shippingCost = quantity * shippingPerCase;
+  const shippingCost = priceData.quantity * shippingPerCase;
   const price = priceData.basePrice - discount + shippingCost;
   return price;
 }
