@@ -1,17 +1,16 @@
 function priceOrder(product, quantity, shippingMethod) {
+  const priceData = calculatePricingData(product, quantity);
+  const price = applyShipping(priceData, shippingMethod);
+  return price;
+}
+// shippingMethodをオブジェクトにまとめなかったのは、この前半部分を関数化するときに無駄にパラメーターで渡さないといけないから。たぶん。
+function calculatePricingData(product, quantity) {
   const basePrice = product.basePrice * quantity;
   const discount =
     Math.max(quantity - product.discountThreshold, 0) *
     product.basePrice *
     product.discountRate;
-  // shippingMethodは前半部分で使われていないのでオブジェクトにまとめない
-  const priceData = {
-    basePrice: basePrice,
-    quantity: quantity,
-    discount: discount,
-  };
-  const price = applyShipping(priceData, shippingMethod);
-  return price;
+  return { basePrice: basePrice, quantity: quantity, discount: discount };
 }
 function applyShipping(priceData, shippingMethod) {
   const shippingPerCase =
