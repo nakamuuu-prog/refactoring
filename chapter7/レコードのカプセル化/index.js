@@ -18,10 +18,13 @@ class Organization {
   set name(aString) {
     this._data.name = aString;
   }
+  get name() {
+    return this._data.name;
+  }
 }
 
 // 参照時
-result += `<h1>${getRawDataOfOrganization().name}</h1>`;
+result += `<h1>${getOrganization().name}</h1>`;
 
 // 更新時
 getOrganization().name = newName;
