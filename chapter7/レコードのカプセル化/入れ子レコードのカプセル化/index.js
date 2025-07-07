@@ -38,7 +38,10 @@ setRawDataOfCustomers({
 });
 
 // sample update...
-getRawDataOfCustomers()[customerID].usages[year][month] = amount;
+function setUsage(customerID, year, month, amount) {
+  getRawDataOfCustomers()[customerID].usages[year][month] = amount;
+}
+setUsage(customerID, year, month, amount);
 
 // sample read...
 function compareUsage(customerID, laterYear, month) {
