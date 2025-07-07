@@ -5,7 +5,7 @@ function getCustomerData() {
 }
 
 function getRawDataOfCustomers() {
-  return customerData._data;
+  return customerData.rowData;
 }
 
 function setRawDataOfCustomers(arg) {
@@ -15,6 +15,11 @@ function setRawDataOfCustomers(arg) {
 class CustomerData {
   constructor(data) {
     this._data = data;
+  }
+  // すべてのカプセル化ができたことを確認するために、データのディープコピーを返す関数を実装する
+  rowData() {
+    // ladashライブラリのディープコピーを使う
+    return _.cloneDeep(this._data);
   }
 
   setUsage(customerID, year, month, amount) {
