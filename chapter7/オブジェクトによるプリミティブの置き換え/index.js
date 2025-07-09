@@ -24,4 +24,4 @@ class Order {
 
 highPriorityCount = orders.filter(
   (o) => 'high' === o.priority.toString() || 'rush' === o.priority.toString()
-);
+).length;
