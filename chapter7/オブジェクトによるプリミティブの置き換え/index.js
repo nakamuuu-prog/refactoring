@@ -11,6 +11,9 @@ class Order {
   constructor(data) {
     this.priority = data.priority;
   }
+  get priority() {
+    return this._priority;
+  }
   get priorityString() {
     return this._priority.toString();
   }
@@ -20,5 +23,5 @@ class Order {
 }
 
 highPriorityCount = orders.filter(
-  (o) => 'high' === o.priorityString || 'rush' === o.priorityString
+  (o) => 'high' === o.priority.toString() || 'rush' === o.priority.toString()
 );
