@@ -1,4 +1,4 @@
-aShipment.trackingInformation.shippingCompany = request.vendor;
+aShipment.shippingCompany = request.vendor;
 
 class TrackingInformation {
   get shippingCompany() {
@@ -30,5 +30,9 @@ class Shipment {
   }
   set trackingInformation(aTrackingInformation) {
     this._trackingInformation = aTrackingInformation;
+  }
+
+  set shippingCompany(arg) {
+    this._trackingInformation.shippingCompany = arg;
   }
 }
