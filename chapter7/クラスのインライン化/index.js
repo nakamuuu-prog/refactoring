@@ -32,6 +32,9 @@ class Shipment {
     this._trackingInformation = aTrackingInformation;
   }
 
+  get shippingCompany() {
+    return this._trackingInformation.shippingCompany;
+  }
   set shippingCompany(arg) {
     this._trackingInformation.shippingCompany = arg;
   }
