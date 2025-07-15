@@ -1,16 +1,16 @@
 class Customer {
   constructor(name, discountRate) {
     this._name = name;
-    this._setDiscountRate(discountRate);
     this._contract = new CustomerContract(dateToday());
+    this._setDiscountRate(discountRate);
   }
 
   get discountRate() {
-    return this._discountRate;
+    return this._contract.discountRate;
   }
   // discountRate の公開 setter を提供したくないので、プロパティの setter は使わずに discountRate を更新するメソッドを用意
   _setDiscountRate(aNumber) {
-    this._discountRate = aNumber;
+    this._contract.discountRate = aNumber;
   }
   becomePreferred() {
     this._setDiscountRate(this.discountRate + 0.03);
