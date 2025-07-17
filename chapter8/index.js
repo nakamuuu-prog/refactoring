@@ -1,16 +1,10 @@
 function acquireData(input) {
   const lines = input.split('\n');
-  let firstLine = true;
   const result = [];
 
-  const loopItems = lines;
+  const loopItems = lines.slice(1);
 
   for (const line of loopItems) {
-    if (firstLine) {
-      firstLine = false;
-      continue;
-    }
-
     if (line.trim() === '') continue;
 
     const record = line.split(',');
