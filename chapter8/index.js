@@ -3,7 +3,9 @@ function acquireData(input) {
   let firstLine = true;
   const result = [];
 
-  for (const line of lines) {
+  const loopItems = lines;
+
+  for (const line of loopItems) {
     if (firstLine) {
       firstLine = false;
       continue;
