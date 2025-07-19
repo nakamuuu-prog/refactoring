@@ -33,7 +33,11 @@ class EuropeanSwallow {
   }
 }
 
-class AfricanSwallow extends Bird {}
+class AfricanSwallow extends Bird {
+  get plumage() {
+    return this.numberOfCoconuts > 2 ? 'tired' : 'average';
+  }
+}
 
 class NorwegianBlueParrot extends Bird {}
 
@@ -47,7 +51,7 @@ class Bird {
       case 'EuropeanSwallow':
         throw 'oops';
       case 'AfricanSwallow':
-        return this.numberOfCoconuts > 2 ? 'tired' : 'average';
+        throw 'oops';
       case 'NorwegianBlueParrot':
         return this.voltage > 100 ? 'scorched' : 'beautiful';
       default:
