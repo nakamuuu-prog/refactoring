@@ -39,7 +39,11 @@ class AfricanSwallow extends Bird {
   }
 }
 
-class NorwegianBlueParrot extends Bird {}
+class NorwegianBlueParrot extends Bird {
+  get plumage() {
+    return this.voltage > 100 ? 'scorched' : 'beautiful';
+  }
+}
 
 class Bird {
   constructor(birdObject) {
@@ -53,7 +57,7 @@ class Bird {
       case 'AfricanSwallow':
         throw 'oops';
       case 'NorwegianBlueParrot':
-        return this.voltage > 100 ? 'scorched' : 'beautiful';
+        throw 'oops';
       default:
         return 'unknown';
     }
