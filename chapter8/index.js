@@ -27,7 +27,11 @@ function createBird(bird) {
   }
 }
 
-class EuropeanSwallow extends Bird {}
+class EuropeanSwallow {
+  get plumage() {
+    return 'average';
+  }
+}
 
 class AfricanSwallow extends Bird {}
 
@@ -41,7 +45,7 @@ class Bird {
   get plumage() {
     switch (this.type) {
       case 'EuropeanSwallow':
-        return 'average';
+        throw 'oops';
       case 'AfricanSwallow':
         return this.numberOfCoconuts > 2 ? 'tired' : 'average';
       case 'NorwegianBlueParrot':
