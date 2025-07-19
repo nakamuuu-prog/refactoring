@@ -1,16 +1,33 @@
-function distanceTravelled(scenario, time) {
-  let result;
-  const primaryAcceleration = scenario.primaryForce / scenario.mass;
-  let primaryTime = Math.min(time, scenario.delay);
-  result = 0.5 * primaryAcceleration * primaryTime * primaryTime;
-  let secondaryTime = time - scenario.delay;
-  if (secondaryTime > 0) {
-    let primaryVelocity = primaryAcceleration * scenario.delay;
-    const secondaryAcceleration =
-      (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
-    result +=
-      primaryVelocity * secondaryTime +
-      0.5 * secondaryAcceleration * secondaryTime * secondaryTime;
+function plumages(birds) {
+  return new Map(birds.map((b) => [b.name, plumage(b)]));
+}
+
+function speeds(birds) {
+  return new Map(birds.map((b) => [b.name, airSpeedVelocity(b)]));
+}
+
+function plumage(bird) {
+  switch (bird.type) {
+    case 'EuropeanSwallow':
+      return 'average';
+    case 'AfricanSwallow':
+      return bird.numberOfCoconuts > 2 ? 'tired' : 'average';
+    case 'NorwegianBlueParrot':
+      return bird.voltage > 100 ? 'scorched' : 'beautiful';
+    default:
+      return 'unknown';
   }
-  return result;
+}
+
+function airSpeedVelocity(bird) {
+  switch (bird.type) {
+    case 'EuropeanSwallow':
+      return 35;
+    case 'AfricanSwallow':
+      return 40 - 2 * bird.numberOfCoconuts;
+    case 'NorwegianBlueParrot':
+      return bird.isNailed ? 0 : 10 + bird.voltage / 10;
+    default:
+      return null;
+  }
 }
