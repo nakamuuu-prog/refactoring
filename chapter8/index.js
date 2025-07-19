@@ -1,6 +1,14 @@
 function rating(voyage, history) {
-  return new Rating(voyage, history).value;
+  return createRating(voyage, history).value;
 }
+
+function createRating(voyage, history) {
+  if (voyage.zone === 'china' && history.some((v) => 'china' === v.zone))
+    return new ExperiencedChinaRating(voyage, history);
+  else return new Rating(voyage, history);
+}
+
+class ExperiencedChinaRating extends Rating {}
 
 class Rating {
   constructor(voyage, history) {
@@ -24,7 +32,7 @@ class Rating {
     return Math.max(result, 0);
   }
 
-  get capitanHistoryRisk() {
+  get captainHistoryRisk() {
     let result = 1;
     if (this.history.length < 5) result += 4;
     result += this.history.filter((v) => v.profit < 0).length;
