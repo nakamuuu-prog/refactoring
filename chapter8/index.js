@@ -1,4 +1,5 @@
-const found = alertForMiscreant(people);
+const found = findMiscreant(people);
+alertForMiscreant(people);
 
 function alertForMiscreant(people) {
   for (const p of people) {
