@@ -1,18 +1,19 @@
-function baseCharge(usage) {
-  if (usage < 0) return usd(0);
-  const amount =
-    bottomBand(usage) * 0.03 + middleBand(usage) * 0.05 + topBand(usage) * 0.07;
-  return usd(amount);
-}
+function score(candidate, medicalExam, scoringGuide) {
+  let result = 0;
+  let healthLevel = 0;
+  let highMedicalRiskFlag = false;
 
-function bottomBand(usage) {
-  return Math.min(usage, 100);
-}
+  if (medicalExam.isSmoker) {
+    healthLevel -= 10;
+    highMedicalRiskFlag = true;
+  }
 
-function middleBand(usage) {
-  return usage > 100 ? Math.min(usage, 200) - 100 : 0;
-}
-
-function topBand(usage) {
-  return usage > 200 ? usage - 200 : 0;
+  let certificationGrade = 'regular';
+  if (scoringGuide.stateWithLowCertification(candidate.originState)) {
+    certificationGrade = 'low';
+    result -= 5;
+  }
+  // このようなコードがずっと続く
+  result -= Math.max(healthLevel - 5, 0);
+  return result;
 }
